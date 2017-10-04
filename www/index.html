@@ -1,0 +1,272 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="components/loader.js"></script>
+  <script src="lib/angular/angular.min.js"></script>
+  <script src="lib/onsenui/js/onsenui.min.js"></script>
+  <script src="lib/onsenui/js/angular-onsenui.min.js"></script>
+  <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
+
+  <link rel="stylesheet" href="components/loader.css">
+  <link rel="stylesheet" href="lib/onsenui/css/onsenui.css">
+  <link rel="stylesheet" href="lib/onsenui/css/onsen-css-components.css">
+  <link rel="stylesheet" href="css/style.css">
+  
+  <script>
+    ons.bootstrap()
+      .controller('AppController', function() {
+      });
+    ons.ready(function() {
+        console.log("Onsen UI is ready!");
+    });
+    
+    function offradio() {
+        var ElementsCount = 5; // ラジオボタンの数
+        for( i=0 ; i<ElementsCount ; i++ ) {
+            document.sample.elements[i].checked = false;
+        }
+    }
+
+    document.addEventListener('init',function(event) {
+      var page = event.target;
+      if (page.matches('#graph-page')) {
+        
+        var data = {
+            labels: ["7/8", "7/9", "7/10", "7/11", "7/12", "7/13", "7/14"],
+            datasets: [
+                {
+                    label: "peak flow",
+                    backgroundColor: "rgba(179,181,198,0.2)",
+                    borderColor: "rgba(179,181,198,1)",
+                    pointBackgroundColor: "rgba(179,181,198,1)",
+                    pointBorderColor: "#fff",
+                    pointHoverBackgroundColor: "#fff",
+                    pointHoverBorderColor: "rgba(179,181,198,1)",
+                    data: [495, 487, 490, 481, 456, 455, 440]
+                },
+            ]
+        };
+        
+        var ctx = document.getElementById("chart-canvas");
+        
+        var myLineChart = new Chart(ctx, {
+            type: 'line',
+            data: data,
+        });
+      }
+    });
+    
+  </script>
+</head>
+
+<body>  
+    <ons-navigator
+        var="navi"
+        page="home.html"
+     </ons-navigator>
+  
+    <ons-template id="home.html">
+        <ons-page>
+            <ons-toolbar fixed-style>
+                <div class="center">ホーム</div>
+            </ons-toolbar>
+      
+            <section><br><br><center> &nbsp;
+                <ons-button modifier="quiet" ng-click="navi.pushPage('faith.html')">
+                    <input class="menu" type="image" src="images/input.png" alt="input">
+                </ons-button> &nbsp;
+            <ons-button modifier="quiet" ng-click="navi.pushPage('graph.html')">
+                 <input class="menu" id="push-button" type="image" src="images/graph.png" alt="graph">
+            </ons-button>
+        </center></section>
+        </ons-page>
+    </ons-template>
+  
+    <ons-template id="faith.html">
+        <ons-page>
+            <ons-toolbar fixed-style>
+                <div class="center">ぐあい</div>
+                <ons-button class="nextbutton" ng-click="navi.pushPage('condition.html')">
+                    つぎへ
+                </ons-button>
+                
+                <ons-button class="backbutton" ng-click="navi.resetToPage('home.html')">
+                    もどる
+                </ons-button>
+            </ons-toolbar>
+            
+            <section><center>
+                <p class=faith>
+                   <label><input type="radio" name="fs" value="1" class="radio"><img src="images/FS1.png" class="radio_image"></label>
+                    <label><input type="radio" name="fs" value="2" class="radio"><img src="images/FS2.png" class="radio_image"></label>
+                    <label><input type="radio" name="fs" value="3" class="radio"><img src="images/FS3.png" class="radio_image"></label>
+                    <label><input type="radio" name="fs" value="4" class="radio"><img src="images/FS4.png" class="radio_image"></label>
+                    <label><input type="radio" name="fs" value="5" class="radio"><img src="images/FS5.png" class="radio_image"></label>
+                </p>
+                <div id="faith_button">
+                        <ons-button ng-click="navi.resetToPage('faith.html')">
+                            まちがえた！
+                        </ons-button>
+               </div>
+            </center></section>
+        </ons-page ns-page>
+    </ons-template>
+    
+    <ons-template id="condition.html">
+        <ons-page>
+            <ons-toolbar fixed-style>
+                <div class="center">ぐあい</div>
+                <section>
+                <ons-button class="nextbutton" ng-click="navi.pushPage('medicine.html')">
+                    つぎへ
+                </ons-button>
+                
+                <ons-button class="backbutton" ng-click="navi.resetToPage('faith.html')">
+                    もどる
+                </ons-button>
+            </section>
+            </ons-toolbar>
+            
+            <section id="condition">
+            <table class="condition_element">
+                 <tr>
+                    <td><input type="checkbox" name="hatunetu" value="2">くるしい</td>
+                    <td><input type="checkbox" name="ikigire" value="6">いきぎれがする</td>
+                    <td><input type="checkbox" name="kidou" value="8">ゼーゼー/ヒューヒュー</td>
+                </tr>
+                <tr>
+                    
+                    <td><input type="checkbox" name="hatunetu" value="2">ねつがある</td>
+                    <td><input type="checkbox" name="zutuu" value="4">あたまがいたい</td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox" name="kushami" value="1">くしゃみ</td>
+                    <td><input type="checkbox" name="hanadumari" value="5">はなづまり</td>
+                    <td><input type="checkbox" name="hanamizu" value="3">はなみず</td>
+                <tr>
+                    <td><input type="checkbox" name="hanamizu" value="3">ねむれない</td>
+                </tr>
+            </table>
+
+            <input type="text" placeholder="その他気になったこと"name="comment">
+
+        </p></center>
+        </ons-page ns-page>
+    </ons-template>
+    
+    <ons-template id="medicine.html">
+    <ons-page>
+        <ons-toolbar fixed-style>
+                <div class="center">くすり</div>
+                <section>
+                <ons-button class="nextbutton" ng-click="navi.pushPage('peakflow.html')">
+                    つぎへ
+                </ons-button>
+                
+                <ons-button class="backbutton" ng-click="navi.resetToPage('condition.html')">
+                    もどる
+                </ons-button>
+            </section>
+        </ons-toolbar>
+
+        <table id="medicine">
+            <tr><td><input type="checkbox" name="kushami" value="1">コントローラー</td></tr>
+            <tr></tr>
+            <tr><td><input type="checkbox" name="hanadumari" value="5">リリーバー</td></tr>
+            <tr></tr>
+            <td><input type="checkbox" name="hanamizu" value="3">その他（かぜ薬等）</td>
+            </table>
+        </ons-page>
+    </ons-template>
+  
+    <ons-template id="peakflow.html">
+        <ons-page>
+            <ons-toolbar>
+                <section>
+                <ons-button class="nextbutton" ng-click="navi.pushPage('coution.html')">
+                    つぎへ
+                </ons-button>
+                
+                <ons-button class="backbutton" ng-click="navi.resetToPage('medicine.html')">
+                    もどる
+                </ons-button>
+            </section>
+                <div class="center">ピークフロー</div>
+                </div>
+            </ons-toolbar>
+
+            <section style="padding: 70px">
+                <center>
+                    <p>ピークフロー値を入力してね！</p>
+                    <input type="tel">
+                    <p>(自動入力実装予定)</p>
+                </center>
+            </section>
+        </ons-page>
+    </ons-template>
+  
+    <ons-template id="coution.html">
+        <ons-page>
+            <ons-toolbar>
+                <div class="center">ちゅうい</div>
+                <div class="right">
+                    <ons-button ng-click="navi.resetToPage('home.html')">
+                        おわる
+                    </ons-button>
+                </div>
+            </ons-toolbar>
+
+            <form name="form1" action="">
+                <center>
+                    <p>実装中</p>
+                    <p>入力された体調や症状を参考に注意喚起を行う<br>
+                    <br>
+                    （詳しくはスライドで説明）</p>
+                </center>
+            </form>
+        </ons-page>
+    </ons-template>
+    
+    <ons-template id="graph.html">
+        <ons-page id="graph-page">
+            <ons-toolbar>
+                <div class="center">グラフ</div>
+                <div class="right">
+                    <ons-button modifier="cta" ng-click="navi.resetToPage('home.html')">
+                        ホーム
+                    </ons-button>
+                </div>
+            </ons-toolbar>
+            <center>
+                <canvas id="chart-canvas"></canvas>
+            </center>
+        </ons-page>
+    </ons-template>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
