@@ -1,0 +1,16 @@
+.radio_image{
+    margin: 50px 0px 6px 15px;
+}
+
+.radio {
+    display: none;
+}
+
+.radio:checked + .radio_image {
+	border: 3px #ff0000 solid;
+    margin: 47px -3px -3px 12px;
+}
+
+#faith_button{
+    margin: 0px 20px;
+}
